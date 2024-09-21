@@ -4,10 +4,11 @@
   "license": "MIT",
   "scripts": {
     "build": "nx build web",
-    "dev": "nx serve web"
+    "dev": "nx serve web --port 3300"
   },
   "private": true,
   "dependencies": {
+    "@coral-xyz/anchor": "^0.30.1",
     "@solana-developers/preset-next": "3.1.0",
     "@solana/spl-token": "0.4.6",
     "@solana/wallet-adapter-base": "^0.9.23",
@@ -15,6 +16,7 @@
     "@solana/wallet-adapter-react-ui": "^0.9.35",
     "@solana/web3.js": "1.91.9",
     "@tanstack/react-query-next-experimental": "5.40.0",
+    "bigint-buffer": "^1.1.5",
     "bs58": "5.0.0",
     "buffer": "6.0.3",
     "encoding": "0.1.13",

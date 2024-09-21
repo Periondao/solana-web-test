@@ -8,6 +8,7 @@ export interface Cluster {
   endpoint: string;
   network?: ClusterNetwork;
 }
+
 export enum ClusterNetwork {
   Mainnet = 'mainnet-beta',
   Testnet = 'testnet',
@@ -27,6 +28,7 @@ export function ClusterProvider({ children }: { children: ReactNode }) {
   const value: ClusterProviderContext = {
     cluster: { endpoint: clusterApiUrl('devnet') },
   };
+
   return <Context.Provider value={value}>{children}</Context.Provider>;
 }
 

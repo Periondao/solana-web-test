@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
-import { WalletButton } from '../solana/solana-provider';
+
+import { WalletButton } from '@/components/solana/solana-provider';
 
 export function AppLayout({ children }: { children: ReactNode }) {
   return (
@@ -18,9 +19,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
             <img src="/logo.png" height={24} alt="Logo" />
           </Link>
         </div>
-        <div>
-          <WalletButton />
-        </div>
+        <WalletButton />
       </div>
       <div style={{ flexGrow: 1, padding: '6px' }}>{children}</div>
       <footer
