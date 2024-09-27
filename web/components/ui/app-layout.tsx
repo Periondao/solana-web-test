@@ -16,7 +16,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
       >
         <div>
           <Link href="/">
-            <img src="/logo.png" height={24} alt="Logo" />
+            FanplaySol
           </Link>
         </div>
         <WalletButton />

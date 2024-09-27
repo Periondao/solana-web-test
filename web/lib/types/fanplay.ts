@@ -1,4 +1,10 @@
-{
+/**
+ * Program IDL in camelCase format in order to be used in JS/TS.
+ *
+ * Note that this is only a type helper and is not the actual IDL. The original
+ * IDL can be found at `target/idl/fanplay.json`.
+ */
+export type Fanplay = {
   "address": "7B7cEiCLPGKFr2XH2cSQ53BSrbpyyoT4efoGsQFLbZo7",
   "metadata": {
     "name": "fanplay",
@@ -8,7 +14,7 @@
   },
   "instructions": [
     {
-      "name": "create_pool",
+      "name": "createPool",
       "discriminator": [
         233,
         146,
@@ -21,7 +27,7 @@
       ],
       "accounts": [
         {
-          "name": "pool_account",
+          "name": "poolAccount",
           "writable": true
         },
         {
@@ -30,17 +36,17 @@
           "signer": true
         },
         {
-          "name": "system_program",
+          "name": "systemProgram",
           "address": "11111111111111111111111111111111"
         }
       ],
       "args": [
         {
-          "name": "pool_id",
+          "name": "poolId",
           "type": "string"
         },
         {
-          "name": "game_id",
+          "name": "gameId",
           "type": "u32"
         }
       ]
@@ -59,7 +65,7 @@
       ],
       "accounts": [
         {
-          "name": "pool_account",
+          "name": "poolAccount",
           "writable": true
         },
         {
@@ -68,7 +74,7 @@
           "signer": true
         },
         {
-          "name": "system_program",
+          "name": "systemProgram",
           "address": "11111111111111111111111111111111"
         }
       ],
@@ -78,11 +84,11 @@
           "type": "u64"
         },
         {
-          "name": "payout_list",
+          "name": "payoutList",
           "type": {
             "vec": {
               "defined": {
-                "name": "PayoutItem"
+                "name": "payoutItem"
               }
             }
           }
@@ -90,7 +96,7 @@
       ]
     },
     {
-      "name": "place_pick",
+      "name": "placePick",
       "discriminator": [
         3,
         215,
@@ -103,7 +109,7 @@
       ],
       "accounts": [
         {
-          "name": "pool_account",
+          "name": "poolAccount",
           "writable": true
         },
         {
@@ -112,13 +118,13 @@
           "signer": true
         },
         {
-          "name": "system_program",
+          "name": "systemProgram",
           "address": "11111111111111111111111111111111"
         }
       ],
       "args": [
         {
-          "name": "pick_spec",
+          "name": "pickSpec",
           "type": "string"
         },
         {
@@ -130,7 +136,7 @@
   ],
   "accounts": [
     {
-      "name": "PoolAccount",
+      "name": "poolAccount",
       "discriminator": [
         116,
         210,
@@ -145,12 +151,12 @@
   ],
   "types": [
     {
-      "name": "PayoutItem",
+      "name": "payoutItem",
       "type": {
         "kind": "struct",
         "fields": [
           {
-            "name": "user_key",
+            "name": "userKey",
             "type": "pubkey"
           },
           {
@@ -161,28 +167,28 @@
       }
     },
     {
-      "name": "PoolAccount",
+      "name": "poolAccount",
       "type": {
         "kind": "struct",
         "fields": [
           {
-            "name": "pool_id",
+            "name": "poolId",
             "type": "string"
           },
           {
-            "name": "game_id",
+            "name": "gameId",
             "type": "u32"
           },
           {
-            "name": "pool_total",
+            "name": "poolTotal",
             "type": "u64"
           },
           {
-            "name": "pick_count",
+            "name": "pickCount",
             "type": "u32"
           },
           {
-            "name": "admin_key",
+            "name": "adminKey",
             "type": "pubkey"
           },
           {
@@ -190,7 +196,7 @@
             "type": {
               "vec": {
                 "defined": {
-                  "name": "UserPick"
+                  "name": "userPick"
                 }
               }
             }
@@ -199,16 +205,16 @@
       }
     },
     {
-      "name": "UserPick",
+      "name": "userPick",
       "type": {
         "kind": "struct",
         "fields": [
           {
-            "name": "user_key",
+            "name": "userKey",
             "type": "pubkey"
           },
           {
-            "name": "pick_spec",
+            "name": "pickSpec",
             "type": "string"
           },
           {
@@ -219,4 +225,4 @@
       }
     }
   ]
-}
+};
