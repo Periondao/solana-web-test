@@ -23,7 +23,7 @@ const Campaign = () => {
         program.programId
       )
   
-      const tx = await program.methods.create('Berestrok', 'Vaique', new BN(2000))
+      const tx = await program.methods.create('Foquelhon', 'Herteka', new BN(2000))
         .accounts({
           systemProgram: SystemProgram.programId,
           user: wallet.publicKey,
