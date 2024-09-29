@@ -6,7 +6,8 @@ import { LAMPORTS_PER_SOL, SystemProgram } from "@solana/web3.js"
 import { BN, Program } from "@coral-xyz/anchor"
 import { useState } from "react"
 
-import { truncateAddress } from "@/lib/utils"
+import Pool from "./Pool"
+
 import { Fanplay } from "@/lib/types/fanplay"
 
 import idl from '@/lib/assets/fanplayIdl.json'
@@ -18,7 +19,7 @@ const PoolList = () => {
   const { connection } = useConnection()
 
   const getPools = async () => {
-		const program = new Program(idl as Fanplay, { connection })
+    const program = new Program(idl as Fanplay, { connection })
 
     const progAccounts = await connection.getProgramAccounts(program.programId)
 
@@ -29,38 +30,38 @@ const PoolList = () => {
       })
     )
 
-		await Promise.all(promises).then((pools) => {
+    await Promise.all(promises).then((pools) => {
       console.log('pools', pools)
       setList(pools)
     })
 	}
 
-  const placePick = async (pool: any) => {
+  const placePick = async (pool: any, pickSpec: string) => {
     try {
       if (!publicKey) return alert('Connect wallet')
 
-			const program = new Program(idl as Fanplay, { connection })
+      const program = new Program(idl as Fanplay, { connection })
 
-			const tx = await program.methods.placePick(
-        'w:BluePegasus',
+      const tx = await program.methods.placePick(
+        pickSpec,
         new BN(0.01 * LAMPORTS_PER_SOL)
       )
-				.accounts({
-					systemProgram: SystemProgram.programId,
-					poolAccount: pool.pubkey,
-					user: publicKey,
-				} as any)
+        .accounts({
+          systemProgram: SystemProgram.programId,
+          poolAccount: pool.pubkey,
+          user: publicKey,
+        } as any)
         .transaction()
 			
       const resp = await sendTransaction(tx, connection)
 
       console.log('Txn signature', resp)
-			console.log("Placed pick on Pool Id:", publicKey.toString())
+      console.log("Placed pick on Pool Id:", publicKey.toString())
 
-			await getPools()
-		} catch (error) {
-			console.error("Error donating:", error);
-		}
+      await getPools()
+    } catch (error) {
+      console.error("Error donating:", error);
+    }
   }
 
   return (
@@ -68,22 +69,7 @@ const PoolList = () => {
       <div>Pool List</div>
       <button onClick={getPools}>Get Pools</button>
       {list.map(pool => (
-        <div key={pool.pubkey.toString()} style={{ marginTop: 20 }}>
-          <div>Pool ID: <strong>{pool.poolId}</strong></div>
-          <div>Game ID: <strong>{pool.gameId}</strong></div>
-          <div>Pool total (SOL): <strong>{pool.poolTotal / LAMPORTS_PER_SOL}</strong></div>
-          <div style={{ margin: '5px 0', fontWeight: 'bold' }}>PICKS</div>
-          {pool.picks.map((pick: any, index: number) => (
-            <div key={pick.pickSpec + index} style={{ fontSize: 12, marginBottom: 10 }}>
-              <div>Spec: <strong>{pick.pickSpec}</strong></div>
-              <div>Amount: <strong>{pick.amount / LAMPORTS_PER_SOL}</strong></div>
-              <div>Wallet: {truncateAddress(pick.userKey.toString())}</div>
-            </div>
-          ))}
-          <button onClick={() => placePick(pool)}>
-            Place Pick
-          </button>
-        </div>
+        <Pool key={pool.poolId} pool={pool} placePick={placePick} />
       ))}
     </div>
   )
