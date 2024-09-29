@@ -2,6 +2,9 @@
 
 import { LAMPORTS_PER_SOL } from "@solana/web3.js"
 import { useState } from "react"
+import Link from "next/link"
+
+import AddressSpan from "@/components/fanplay/address-span"
 
 import { truncateAddress } from "@/lib/utils"
 
@@ -17,13 +20,18 @@ const Pool = ({ pool, placePick }: PoolProps) => {
     <div style={{ marginTop: 20 }}>
       <div>Pool ID: <strong>{pool.poolId}</strong></div>
       <div>Game ID: <strong>{pool.gameId}</strong></div>
+      <div>
+        Pool admin: <AddressSpan address={truncateAddress(pool.adminKey.toString())} />
+      </div>
       <div>Pool total (SOL): <strong>{pool.poolTotal / LAMPORTS_PER_SOL}</strong></div>
       <div style={{ margin: '5px 0', fontWeight: 'bold' }}>PICKS</div>
       {pool.picks.map((pick: any, index: number) => (
         <div key={pick.pickSpec + index} style={{ fontSize: 12, marginBottom: 10 }}>
           <div>Spec: <strong>{pick.pickSpec}</strong></div>
           <div>Amount: <strong>{pick.amount / LAMPORTS_PER_SOL}</strong></div>
-          <div>Wallet: {truncateAddress(pick.userKey.toString())}</div>
+          <div>Wallet:{` `}
+            <AddressSpan address={truncateAddress(pick.userKey.toString())} />
+          </div>
         </div>
       ))}
       <input
@@ -35,6 +43,11 @@ const Pool = ({ pool, placePick }: PoolProps) => {
       <button onClick={() => placePick(pool, spec)}>
         Place Pick
       </button>
+      <div style={{ marginTop: 10 }}>
+        <Link href={`/payout?pubKey=${pool.pubkey.toString()}`}>
+          Go to Payout
+        </Link>
+      </div>
     </div>
   )
 }

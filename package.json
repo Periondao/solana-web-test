@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "build": "nx build web",
-    "dev": "nx serve web --port 3300"
+    "dev": "nx serve web --port 3300",
+    "reset": "nx reset"
   },
   "private": true,
   "dependencies": {
